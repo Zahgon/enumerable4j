@@ -21,7 +21,6 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 package io.github.dgroup.enumerable4j;
 
 import java.util.function.Function;
@@ -68,6 +67,6 @@ public final class Joined<X> implements Predicate<X> {
 
     @Override
     public boolean test(final X val) {
-        return this.fnc.apply(val);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

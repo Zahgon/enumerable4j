@@ -58,7 +58,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return True if the functions never return false.
      */
     default boolean all(Predicate<X> first, Predicate<X>... other) {
-        return this.stream().allMatch(new Joined<>(first, other));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -70,7 +70,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return True if functions never return true at least once.
      */
     default boolean any(Predicate<X> first, Predicate<X>... other) {
-        return this.count(first, other) != 0;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -82,7 +82,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return True if the functions never returns false or nil.
      */
     default boolean none(Predicate<X> first, Predicate<X>... other) {
-        return this.stream().noneMatch(new Joined<>(first, other));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -95,9 +95,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return The enumerable.
      */
     default Enumerable<X> select(Predicate<X> first, Predicate<X>... other) {
-        return new Linked<>(
-            this.stream().filter(new Joined<>(first, other)).iterator()
-        );
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -110,18 +108,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return The enumerable.
      */
     default Enumerable<X> reject(Predicate<X> first, Predicate<X>... other) {
-        Predicate<X> prd = val -> true;
-        if (first != null) {
-            prd = first.negate();
-        }
-        if (other != null) {
-            for (final Predicate<X> oth : other) {
-                if (oth != null) {
-                    prd = prd.and(oth.negate());
-                }
-            }
-        }
-        return new Linked<>(this.stream().filter(prd).iterator());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -134,7 +121,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return The first element of enumerable, that matches predicate.
      */
     default X find(Predicate<X> first, Predicate<X>... other) {
-        return this.find(null, first, other);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -148,7 +135,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return The first element of enumerable, that matches predicate.
      */
     default X find(X alt, Predicate<X> first, Predicate<X>... other) {
-        return this.stream().filter(new Joined<>(first, other)).findFirst().orElse(alt);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -159,13 +146,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return The enumerable.
      */
     default <Y> Enumerable<Y> map(Function<? super X, Y> fnc) {
-        final Enumerable<Y> out;
-        if (fnc == null) {
-            out = new Empty<>();
-        } else {
-            out = new Linked<>(this.stream().map(fnc).iterator());
-        }
-        return out;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -178,7 +159,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return Number of elements satisfying the given function.
      */
     default long count(Predicate<X> first, Predicate<X>... other) {
-        return this.stream().filter(new Joined<>(first, other)).count();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -190,13 +171,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return Result of of combining elements.
      */
     default X reduce(X idn, BinaryOperator<X> opr) {
-        final X res;
-        if (opr == null) {
-            res = idn;
-        } else {
-            res = this.stream().reduce(idn, opr);
-        }
-        return res;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -207,7 +182,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return The enumerable.
      */
     default Enumerable<X> after(Predicate<X> prd) {
-        return this.after(prd, this.size());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -220,29 +195,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @throws IllegalArgumentException If the size is negative.
      */
     default Enumerable<X> after(Predicate<X> prd, long size) {
-        final Enumerable<X> out;
-        if (size < 0) {
-            throw new IllegalArgumentException(Long.toString(size));
-        } else if (size == 0 || prd == null) {
-            out = new Empty<>();
-        } else {
-            boolean found = false;
-            out = new Linked<>();
-            long cnt = size;
-            for (final X elem : this) {
-                if (!found && prd.negate().test(elem)) {
-                    continue;
-                } else if (!found) {
-                    found = true;
-                    continue;
-                }
-                if (cnt > 0) {
-                    --cnt;
-                    out.add(elem);
-                }
-            }
-        }
-        return out;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -252,7 +205,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return The next element of enumerable after the first one which corresponds the condition.
      */
     default X next(Predicate<X> prd) {
-        return this.next(prd, null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -263,13 +216,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return The next element of enumerable after the first one which corresponds the condition.
      */
     default X next(Predicate<X> prd, X alt) {
-        final X out;
-        if (prd == null) {
-            out = alt;
-        } else {
-            out = this.after(prd, 1).stream().findFirst().orElse(alt);
-        }
-        return out;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -280,11 +227,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return The enumerable.
      */
     default Enumerable<X> chain(Enumerable<X> enm) {
-        final Enumerable<X> out = this;
-        if (enm != null && !enm.isEmpty()) {
-            out.addAll(enm);
-        }
-        return out;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -294,10 +237,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return The enumerable.
      */
     default Enumerable<X> each(Consumer<X> act) {
-        if (act != null && !this.isEmpty()) {
-            this.forEach(act);
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -307,15 +247,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @throws IllegalArgumentException If the size is negative.
      */
     default Enumerable<X> take(long num) {
-        final Enumerable<X> out;
-        if (num < 0) {
-            throw new IllegalArgumentException(Long.toString(num));
-        } else if (num == 0) {
-            out = new Empty<>();
-        } else {
-            out = new Linked<>(this.stream().limit(num).iterator());
-        }
-        return out;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -326,15 +258,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @throws IllegalArgumentException If the size is negative.
      */
     default Enumerable<X> drop(long num) {
-        final Enumerable<X> out;
-        if (num < 0) {
-            throw new IllegalArgumentException(Long.toString(num));
-        } else if (num == 0) {
-            out = this;
-        } else {
-            out = new Linked<>(this.stream().skip(num).iterator());
-        }
-        return out;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -346,7 +270,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return True if the functions returns true exactly once.
      */
     default boolean one(Predicate<X> first, Predicate<X>... other) {
-        return this.count(first, other) == 1;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -355,7 +279,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return The enumerable.
      */
     default Enumerable<X> uniq() {
-        return new Linked<>(new HashSet<>(this));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -367,16 +291,7 @@ public interface Enumerable<X> extends Collection<X> {
      * @return The enumerable.
      */
     default <Y> Enumerable<X> uniq(Function<? super X, ? extends Y> fnc) {
-        final Enumerable<X> out;
-        if (fnc == null) {
-            out = new Empty<>();
-        } else {
-            final Set<Y> keys = new HashSet<>(0);
-            out = new Linked<>(
-                this.stream().filter(val -> keys.add(fnc.apply(val))).iterator()
-            );
-        }
-        return out;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -389,37 +304,6 @@ public interface Enumerable<X> extends Collection<X> {
      * @return The enumerable.
      */
     default Enumerable<? extends Enumerable<X>> zip(Enumerable<X> first, Enumerable<X>... other) {
-        final Collection<List<X>> provided = new ListOf<>();
-        if (first == null) {
-            provided.add(null);
-        } else {
-            provided.add(new ListOf<>(first));
-        }
-        if (other == null) {
-            provided.add(null);
-        } else {
-            for (final Enumerable<X> oth : other) {
-                if (oth == null) {
-                    provided.add(null);
-                } else {
-                    provided.add(new ListOf<>(oth));
-                }
-            }
-        }
-        final Enumerable<Enumerable<X>> out = new Linked<>();
-        int idx = 0;
-        for (final X val : this) {
-            final Enumerable<X> inner = new Linked<>(val);
-            for (final List<X> prov : provided) {
-                if (prov != null && idx < prov.size()) {
-                    inner.add(prov.get(idx));
-                } else {
-                    inner.add(null);
-                }
-            }
-            out.add(inner);
-            ++idx;
-        }
-        return out;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }
